@@ -1,0 +1,23 @@
+.main{
+    padding: 20px;
+    background-color: rgb(32, 32, 33);
+    color: rgb(255, 254, 254);
+    box-sizing: border-box;
+    height:100vh;
+    h2{
+        text-align: center;
+    }
+    .table{
+        margin:60px auto;
+        width :90%;
+    }
+    .buttons{
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: end;
+        Button{
+            margin:5px;
+        }
+    }
+}
