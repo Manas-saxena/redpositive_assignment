@@ -27,7 +27,7 @@ const modalcss={
 
 }
 
-export default function BasicModal() {
+export default function BasicModal({rows , setRows}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () =>{
@@ -84,6 +84,20 @@ export default function BasicModal() {
         {
           axios.post("/" ,data)
           .then((res)=>{
+             axios.get("http://localhost:8000/api/")
+      .then(res =>{
+        let temp = res.data;
+        for(let i=0;i<temp.length;i++)
+        {
+          temp[i] = {...temp[i] , id :i};
+        }
+        console.log(temp);
+        setRows(temp);
+        
+      })
+      .catch(err=>{
+        console.log(err);
+      })
             console.log("success");
 
           })

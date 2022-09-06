@@ -46,8 +46,8 @@ router.put("/:id" , async(req , res) =>{
 router.delete("/:id" , async (req , res) => {
 
     try {
-        await User.findByIdAndDelete(req.params.id);
-        res.status(200).json("The data has been deleted...");
+       const data = await User.findByIdAndDelete(req.params.id);
+        res.status(200).json(data);
     } catch (error) {
         res.status(500).json(error);
     }

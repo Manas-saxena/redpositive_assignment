@@ -1,24 +1,39 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import {DeleteOutline} from "@mui/icons-material";
+import axios from "axios"
 
-const onClickDelete = (id) =>{
-    console.log('deleted row' + id);
-} 
+
+export default function DataTable({setSelected , rows , setRows}) {
+
+
+ 
+    const onClickDelete = (id) =>{
+    axios.delete(`/${rows[id]._id}`)
+    .then(res=>{
+      let temp = rows;
+      temp = temp.filter(item => item.id !== id)
+      setRows( temp);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+    }  
+    
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
+  { field: '_id', headerName: 'ID', width: 250 },
   { field: 'name', headerName: 'Name', width: 150 },
-  { field: 'phoneNumber', headerName: 'Phone Number',width: 200 },
+  { field: 'phoneNumber', headerName: 'Phone Number',width: 150 },
   {
     field: 'email',
     headerName: 'Email',
-    width:300,
+    width:250,
   },
   {
     field: 'hobbies',
     headerName: 'Hobbies',
-    width: 300,
+    width: 200,
   },
   {
       field:"Delete",
@@ -38,26 +53,12 @@ const columns = [
   }
 
 ];
-
-const rows = [
-  { id: 1, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com' ,hobbies:'cricket , music' },
-  { id: 2, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com' ,hobbies:'cricket , music'},
-   { id: 3, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com' ,hobbies:'cricket , music'},
-    { id: 4, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com' ,hobbies:'cricket , music'},
-     { id: 5, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com',hobbies:'cricket , music' },
-      { id: 6, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com',hobbies:'cricket , music'},
-       { id: 7, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com',hobbies:'cricket , music' },
-        { id: 8, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com',hobbies:'cricket , music' },
-         { id: 9, name: 'Snow', phoneNumber: '991725980', email: 'manassaxena23234@gmail.com',hobbies:'cricket , music' },
-];
-
-export default function DataTable({setSelected}) {
  
-    
   return (
     
     <div style={{ height: 400, width: '100%', textAlign:'center' }}>
         
+       { rows.length!=0?
       <DataGrid
       sx={{color:'white' ,
     '& .MuiTablePagination-displayedRows': {
@@ -79,7 +80,7 @@ export default function DataTable({setSelected}) {
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
         checkboxSelection
-      />
+      />:<div></div>}
     </div>
   );
     
