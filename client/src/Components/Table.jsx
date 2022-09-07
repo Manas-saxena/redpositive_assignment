@@ -27,17 +27,17 @@ const columns = [
   {
     field: 'email',
     headerName: 'Email',
-    width:250,
+    width:220,
   },
   {
     field: 'hobbies',
     headerName: 'Hobbies',
-    width: 200,
+    width: 150,
   },
   {
       field:"Delete",
       headerName:"Delete",
-      width:200,
+      width:100,
       renderCell:(param)=>{
          return (
              <>
