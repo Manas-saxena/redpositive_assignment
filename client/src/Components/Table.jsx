@@ -1,14 +1,11 @@
 import * as React from 'react';
-import {useState,useEffect} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import {DeleteOutline} from "@mui/icons-material";
 import axios from "axios"
+import Editmodal from "../Components/Editmodal"
 
 
 export default function DataTable({setSelected , rows , setRows}) {
-
-
- 
     const onClickDelete = (id) =>{
     axios.delete(`/${rows[id]._id}`)
     .then(res=>{
@@ -42,8 +39,9 @@ const columns = [
       renderCell:(param)=>{
          return (
              <>
-             <div width='100%'>
-             <DeleteOutline color='red' className='productListDelete' onClick ={()=>onClickDelete(param.row.id)}></DeleteOutline>
+             <div width='100%' style={{display:"flex"}}>
+             <DeleteOutline color='red' style={{margin:'0 10px 0 0'}} onClick ={()=>onClickDelete(param.row.id)}></DeleteOutline>
+              <Editmodal id = {param.row.id} rows= {rows} setRows = {setRows}></Editmodal>
              </div>
              </>
              
@@ -58,7 +56,7 @@ const columns = [
     
     <div style={{ height: 400, width: '100%', textAlign:'center' }}>
         
-       { rows.length!=0?
+       { rows.length!==0?
       <DataGrid
       sx={{color:'white' ,
     '& .MuiTablePagination-displayedRows': {
@@ -75,7 +73,16 @@ const columns = [
         columns={columns}
         pageSize={5}
         onSelectionModelChange = {(ids)=>{
-            setSelected(ids);
+          let result="";
+     
+          for(let id in ids)
+          {
+            result += `data ${rows[id].id} \n`
+              result = result.concat(JSON.stringify(rows[id]));
+              result+='\n\n'
+          }
+
+            setSelected(result);
         }}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick

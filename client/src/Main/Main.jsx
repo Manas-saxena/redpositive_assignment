@@ -1,11 +1,12 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect , useRef} from 'react'
 import Table from "../Components/Table"
 import Button from '@mui/material/Button';
 import Addmodal from "../Components/Addmodal";
 import "./main.scss"
 import axios from 'axios';
+import emailjs from '@emailjs/browser';
 function Main() {
-    const [Selected, setselected] = useState([]);
+    const [selected, setselected] = useState("");
      const [rows , setRows] = useState([]);
     
     useEffect(() => {
@@ -24,6 +25,24 @@ function Main() {
         console.log(err);
       })
     },[])
+     const form = useRef();
+     const sendEmail = (e) => {
+    e.preventDefault();
+      console.log(selected);
+    emailjs.sendForm('service_8jct95a', 'template_j3rg1t5', form.current, 'VbK71Lbsyv_Lu6i-A')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+  // if(selected.length >0){
+  // for(let id in selected)
+  // {
+  //     result.concat(JSON.stringify(rows[id]));
+  // }
+  // }
+
   return (
     <div className='main'>
         <h2>User Data</h2>
@@ -33,7 +52,11 @@ function Main() {
         <div className='buttons'>
           <Addmodal rows = {rows} setRows ={setRows}></Addmodal>
         {/* <Button variant="contained">Add</Button> */}
-        <Button variant="contained">Send</Button>
+
+        <form ref = {form}>
+          <input type="hidden" name='message' value ={selected} />
+        <Button variant="contained" onClick={sendEmail}>Send</Button>
+        </form>
         </div>
     </div>
     
