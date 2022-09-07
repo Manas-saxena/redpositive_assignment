@@ -7,6 +7,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import validator from 'validator';
 import axios from "axios"
+import toast from "react-hot-toast"
 // import Button from '@mui/material/Button';
 
 const style = {
@@ -91,17 +92,20 @@ export default function BasicModal({rows , setRows}) {
         {
           temp[i] = {...temp[i] , id :i};
         }
+        toast.success("Added to the list");
         console.log(temp);
         setRows(temp);
         
       })
       .catch(err=>{
+         toast.error("error occured");
         console.log(err);
       })
             console.log("success");
 
           })
           .catch((err)=>{
+             toast("error occured");
             console.log(err);
           })
          handleClose();

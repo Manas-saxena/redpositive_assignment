@@ -2,6 +2,7 @@ import React,{useState,useEffect , useRef} from 'react'
 import Table from "../Components/Table"
 import Button from '@mui/material/Button';
 import Addmodal from "../Components/Addmodal";
+import toast from "react-hot-toast"
 import "./main.scss"
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
@@ -17,11 +18,12 @@ function Main() {
         {
           temp[i] = {...temp[i] , id :i};
         }
-        console.log(temp);
+        toast.success("Welcome");
         setRows(temp);
         
       })
       .catch(err=>{
+         toast.error("error occured");
         console.log(err);
       })
     },[])
@@ -31,8 +33,10 @@ function Main() {
       console.log(selected);
     emailjs.sendForm('service_8jct95a', 'template_j3rg1t5', form.current, 'VbK71Lbsyv_Lu6i-A')
       .then((result) => {
+        toast.success("Mail sent successfully");
           console.log(result.text);
       }, (error) => {
+        toast.error("error occured");
           console.log(error.text);
       });
   };

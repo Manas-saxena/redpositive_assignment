@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import {DeleteOutline} from "@mui/icons-material";
 import axios from "axios"
 import Editmodal from "../Components/Editmodal"
-
+import toast from "react-hot-toast"
 
 export default function DataTable({setSelected , rows , setRows}) {
     const onClickDelete = (id) =>{
@@ -11,9 +11,11 @@ export default function DataTable({setSelected , rows , setRows}) {
     .then(res=>{
       let temp = rows;
       temp = temp.filter(item => item.id !== id)
+      toast.success("Deleted");
       setRows( temp);
     })
     .catch(err =>{
+      toast.error("error occured");
       console.log(err);
     })
     }  

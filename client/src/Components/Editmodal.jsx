@@ -8,6 +8,7 @@ import {ModeEditOutline} from "@mui/icons-material";
 import TextField from '@mui/material/TextField';
 import validator from 'validator';
 import axios from "axios"
+import toast from "react-hot-toast"
 // import Button from '@mui/material/Button';
 
 const style = {
@@ -83,11 +84,14 @@ export default function BasicModal({rows , setRows , id}) {
           .then((res)=>{
             let temprow = [...rows];
             temprow[id] = {...res.data , id : id , _id:rows[id]._id};
+            toast.success("Edited");
             setRows(temprow);
+
             console.log("success");
 
           })
           .catch((err)=>{
+             toast.error("error occured");
             console.log(err);
           })
          handleClose();
