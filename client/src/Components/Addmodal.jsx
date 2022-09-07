@@ -82,9 +82,9 @@ export default function BasicModal({rows , setRows}) {
         }
         if(err == error)
         {
-          axios.post("/" ,data)
+          axios.post("/api/" ,data)
           .then((res)=>{
-             axios.get("http://localhost:8000/api/")
+             axios.get("/api/")
       .then(res =>{
         let temp = res.data;
         for(let i=0;i<temp.length;i++)

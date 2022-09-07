@@ -10,7 +10,7 @@ function Main() {
      const [rows , setRows] = useState([]);
     
     useEffect(() => {
-      axios.get("http://localhost:8000/api/")
+      axios.get("/api/")
       .then(res =>{
         let temp = res.data;
         for(let i=0;i<temp.length;i++)

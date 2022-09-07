@@ -79,7 +79,7 @@ export default function BasicModal({rows , setRows , id}) {
         if(err === error)
         {
             delete data._id;
-          axios.put(`/${rows[id]._id}` ,data)
+          axios.put(`/api/${rows[id]._id}` ,data)
           .then((res)=>{
             let temprow = [...rows];
             temprow[id] = {...res.data , id : id , _id:rows[id]._id};

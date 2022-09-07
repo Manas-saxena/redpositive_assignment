@@ -7,7 +7,7 @@ import Editmodal from "../Components/Editmodal"
 
 export default function DataTable({setSelected , rows , setRows}) {
     const onClickDelete = (id) =>{
-    axios.delete(`/${rows[id]._id}`)
+    axios.delete(`api/${rows[id]._id}`)
     .then(res=>{
       let temp = rows;
       temp = temp.filter(item => item.id !== id)
